@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Input } from "semantic-ui-react";
+import store from "./flux/store";
+import * as actions from "./flux/actions";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	constructor() {
+		super();
+		this.state = { inputVal: "", todos: store.getTodos() };
+	}
+
+	componentDidMount() {
+		store.addListener("change", this.update);
+	}
+
+	update = _ => {
+		this.setState({ todos: store.getTodos() });
+	};
+
+	// handleAddTodo() {
+	// 	actions.addTodo(val);
+	// }
+
+	handleInputChange = event => {
+		let val = event.target.value.trim();
+		this.setState({ inputVal: val });
+	};
+
+	render() {
+		return (
+			<div className="App">
+				<Input
+					value={this.state.inputVal}
+					onChange={this.handleInputChange}
+				/>
+				{/* <Button onClick={this.handleAddTodo}>Add</Button> */}
+				{this.state.todos.map(todo => {
+					return <p>123</p>;
+				})}
+			</div>
+		);
+	}
 }
 
 export default App;
