@@ -15,21 +15,24 @@ class TodoList extends Component {
 
 		return (
 			<List celled>
-				{todos.map(todo => {
+				{todos.map(({ id, text, completed }) => {
 					return (
-						<List.Item key={todo.id}>
+						<List.Item
+							className={completed ? "completed" : ""}
+							key={id}
+						>
 							<Checkbox
-								checked={todo.completed}
-								id={todo.id}
+								id={id}
+								checked={completed}
 								onChange={this.handleCheckboxChange}
 							/>
-							<p>{todo.text}</p>
+							<p>{text}</p>
 							<Button
+								id={id}
+								onClick={this.handleButtonClick}
 								content="del"
 								basic
 								compact
-								id={todo.id}
-								onClick={this.handleButtonClick}
 							/>
 						</List.Item>
 					);
