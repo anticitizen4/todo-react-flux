@@ -22,7 +22,7 @@ class Store extends events.EventEmitter {
 					return completed;
 			}
 		});
-		return { todos, tab };
+		return { todos, tab, count: this.todos.length };
 	}
 
 	addTodo(text) {

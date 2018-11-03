@@ -39,7 +39,7 @@ class App extends Component {
 	}
 
 	render() {
-		let { todos, tab } = this.state;
+		let { todos, tab, count } = this.state;
 
 		let menuItems = [
 			{
@@ -66,21 +66,23 @@ class App extends Component {
 					</Segment>
 
 					{!!todos.length && (
-						<>
-							<Segment>
-								<TodoList
-									items={todos}
-									removeTodo={this.handleRemoveTodo}
-									toggleTodo={this.handleToggleTodo}
-								/>
-							</Segment>
-
+						<Segment>
+							<TodoList
+								items={todos}
+								removeTodo={this.handleRemoveTodo}
+								toggleTodo={this.handleToggleTodo}
+							/>
+						</Segment>
+					)}
+					{!!count && (
+						<Segment>
 							<Menu
 								items={menuItems}
 								activeIndex={menuIndex}
 								onItemClick={this.handleTabClick}
+								secondary
 							/>
-						</>
+						</Segment>
 					)}
 				</Segment.Group>
 			</div>
