@@ -7,4 +7,11 @@ function addTodo(text) {
 	});
 }
 
-export { addTodo };
+function removeTodo(id) {
+	dispatcher.dispatch({
+		type: "REMOVE_TODO",
+		id,
+	});
+}
+
+export { addTodo, removeTodo };

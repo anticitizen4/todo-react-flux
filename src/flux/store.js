@@ -34,11 +34,20 @@ class Store extends events.EventEmitter {
 		this.emit("change");
 	}
 
-	handleActions(action) {
-		console.log(action);
+	removeTodo(idToRemove) {
+		this.todos = this.todos.filter(({ id }) => id !== idToRemove);
 
-		if (action.type === "ADD_TODO") {
-			this.addTodo(action.text);
+		this.emit("change");
+	}
+
+	handleActions(action) {
+		switch (action.type) {
+			case "ADD_TODO":
+				this.addTodo(action.text);
+				break;
+			case "REMOVE_TODO":
+				this.removeTodo(action.id);
+				break;
 		}
 	}
 }
