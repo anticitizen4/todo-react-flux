@@ -31,7 +31,7 @@ class AddTodo extends Component {
 						value={this.state.val}
 						onChange={this.handleChange}
 						ref={this.input}
-						action={<Button content="+" />}
+						action={<Button content="add" />}
 						fluid
 					/>
 				</Form>

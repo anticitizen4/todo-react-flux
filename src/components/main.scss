@@ -9,10 +9,23 @@
 	padding: 16px;
 }
 
-.ui.list > * {
+.ui.list > .item {
 	padding: 20px !important;
+	display: flex !important;
+	align-items: center;
+
+	p {
+		margin: 0 16px;
+		flex: 1 1 0;
+	}
+	.button {
+		flex: 0 0 auto;
+		visibility: hidden;
+	}
 
 	&:hover {
-		background-color: rgba($color: #f21b3f, $alpha: 0.35) !important;
+		.button {
+			visibility: visible;
+		}
 	}
 }
