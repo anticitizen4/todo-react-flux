@@ -1,24 +1,33 @@
 import dispatcher from "./dispatcher";
 
-function addTodo(text) {
-	dispatcher.dispatch({
-		type: "ADD_TODO",
-		text,
-	});
-}
+let actions = {
+	addTodo(text) {
+		dispatcher.dispatch({
+			type: "ADD_TODO",
+			text,
+		});
+	},
 
-function removeTodo(id) {
-	dispatcher.dispatch({
-		type: "REMOVE_TODO",
-		id,
-	});
-}
+	removeTodo(id) {
+		dispatcher.dispatch({
+			type: "REMOVE_TODO",
+			id,
+		});
+	},
 
-function toggleTodo(id) {
-	dispatcher.dispatch({
-		type: "TOGGLE_TODO",
-		id,
-	});
-}
+	toggleTodo(id) {
+		dispatcher.dispatch({
+			type: "TOGGLE_TODO",
+			id,
+		});
+	},
 
-export { addTodo, removeTodo, toggleTodo };
+	switchTab(tab) {
+		dispatcher.dispatch({
+			type: "SWITCH_TAB",
+			tab,
+		});
+	},
+};
+
+export default actions;

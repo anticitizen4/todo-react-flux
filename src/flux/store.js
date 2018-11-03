@@ -7,10 +7,22 @@ class Store extends events.EventEmitter {
 		super();
 
 		this.todos = storage.read();
+		this.tab = storage.readTab();
 	}
 
-	getTodos() {
-		return this.todos;
+	getState() {
+		let tab = this.tab;
+		let todos = this.todos.filter(({ completed }) => {
+			switch (tab) {
+				case "ALL":
+					return true;
+				case "ACTIVE":
+					return !completed;
+				case "COMPLETED":
+					return completed;
+			}
+		});
+		return { todos, tab };
 	}
 
 	addTodo(text) {
@@ -39,6 +51,13 @@ class Store extends events.EventEmitter {
 		this.emit("change");
 	}
 
+	switchTab(tab) {
+		this.tab = tab;
+
+		storage.writeTab(tab);
+		this.emit("change");
+	}
+
 	handleActions(action) {
 		switch (action.type) {
 			case "ADD_TODO":
@@ -49,6 +68,9 @@ class Store extends events.EventEmitter {
 				break;
 			case "TOGGLE_TODO":
 				this.toggleTodo(action.id);
+				break;
+			case "SWITCH_TAB":
+				this.switchTab(action.tab);
 				break;
 		}
 	}

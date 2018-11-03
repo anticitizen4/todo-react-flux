@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import store from "../flux/store";
-import * as actions from "../flux/actions";
+import actions from "../flux/actions";
 
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-import { Segment } from "semantic-ui-react";
+import { Segment, Menu } from "semantic-ui-react";
 
 import "./main.scss";
 
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { todos: store.getTodos() };
+		this.state = store.getState();
 	}
 
 	componentDidMount() {
@@ -19,7 +19,7 @@ class App extends Component {
 	}
 
 	update = _ => {
-		this.setState({ todos: store.getTodos() });
+		this.setState(store.getState());
 	};
 
 	handleAddTodo(val) {
@@ -34,8 +34,30 @@ class App extends Component {
 		actions.toggleTodo(id);
 	}
 
+	handleTabClick(_, { name: tab }) {
+		actions.switchTab(tab);
+	}
+
 	render() {
-		let todos = this.state.todos;
+		let { todos, tab } = this.state;
+
+		let menuItems = [
+			{
+				name: "ALL",
+				key: "ALL",
+			},
+			{
+				name: "ACTIVE",
+				key: "ACTIVE",
+			},
+			{
+				name: "COMPLETED",
+				key: "COMPLETED",
+			},
+		];
+
+		let menuIndex = menuItems.findIndex(({ name }) => name === tab);
+
 		return (
 			<div className="container">
 				<Segment.Group>
@@ -44,13 +66,21 @@ class App extends Component {
 					</Segment>
 
 					{!!todos.length && (
-						<Segment>
-							<TodoList
-								items={todos}
-								removeTodo={this.handleRemoveTodo}
-								toggleTodo={this.handleToggleTodo}
+						<>
+							<Segment>
+								<TodoList
+									items={todos}
+									removeTodo={this.handleRemoveTodo}
+									toggleTodo={this.handleToggleTodo}
+								/>
+							</Segment>
+
+							<Menu
+								items={menuItems}
+								activeIndex={menuIndex}
+								onItemClick={this.handleTabClick}
 							/>
-						</Segment>
+						</>
 					)}
 				</Segment.Group>
 			</div>
