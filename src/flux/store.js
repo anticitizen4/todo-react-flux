@@ -1,24 +1,12 @@
 import events from "events";
 import dispatcher from "./dispatcher";
+import storage from "./storage";
 
 class Store extends events.EventEmitter {
 	constructor() {
 		super();
 
-		this.todos = [
-			{
-				id: 1000,
-				text: "AAAA",
-			},
-			{
-				id: 1001,
-				text: "BBBB",
-			},
-			{
-				id: 1002,
-				text: "CCCC",
-			},
-		];
+		this.todos = storage.read();
 	}
 
 	getTodos() {
@@ -29,14 +17,25 @@ class Store extends events.EventEmitter {
 		this.todos.push({
 			id: Date.now(),
 			text,
+			completed: false,
 		});
 
+		storage.write(this.todos);
 		this.emit("change");
 	}
 
 	removeTodo(idToRemove) {
 		this.todos = this.todos.filter(({ id }) => id !== idToRemove);
 
+		storage.write(this.todos);
+		this.emit("change");
+	}
+
+	toggleTodo(idToToggle) {
+		let todo = this.todos.find(({ id }) => id === idToToggle);
+		todo.completed = !todo.completed;
+
+		storage.write(this.todos);
 		this.emit("change");
 	}
 
@@ -47,6 +46,9 @@ class Store extends events.EventEmitter {
 				break;
 			case "REMOVE_TODO":
 				this.removeTodo(action.id);
+				break;
+			case "TOGGLE_TODO":
+				this.toggleTodo(action.id);
 				break;
 		}
 	}

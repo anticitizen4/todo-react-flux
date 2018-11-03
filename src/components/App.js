@@ -30,6 +30,10 @@ class App extends Component {
 		actions.removeTodo(id);
 	}
 
+	handleToggleTodo(id) {
+		actions.toggleTodo(id);
+	}
+
 	render() {
 		let todos = this.state.todos;
 		return (
@@ -44,6 +48,7 @@ class App extends Component {
 							<TodoList
 								items={todos}
 								removeTodo={this.handleRemoveTodo}
+								toggleTodo={this.handleToggleTodo}
 							/>
 						</Segment>
 					)}

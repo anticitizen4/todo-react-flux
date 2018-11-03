@@ -14,4 +14,11 @@ function removeTodo(id) {
 	});
 }
 
-export { addTodo, removeTodo };
+function toggleTodo(id) {
+	dispatcher.dispatch({
+		type: "TOGGLE_TODO",
+		id,
+	});
+}
+
+export { addTodo, removeTodo, toggleTodo };
