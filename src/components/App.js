@@ -4,7 +4,7 @@ import actions from "../flux/actions";
 
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-import { Segment, Menu } from "semantic-ui-react";
+import { Segment, Menu, Button } from "semantic-ui-react";
 
 import "./main.scss";
 
@@ -75,13 +75,17 @@ class App extends Component {
 						</Segment>
 					)}
 					{!!count && (
-						<Segment>
+						<Segment className="controls">
+							<p>items: {count}</p>
 							<Menu
 								items={menuItems}
 								activeIndex={menuIndex}
 								onItemClick={this.handleTabClick}
 								secondary
 							/>
+							<Button compact basic>
+								clear
+							</Button>
 						</Segment>
 					)}
 				</Segment.Group>
