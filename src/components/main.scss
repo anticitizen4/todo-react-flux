@@ -21,7 +21,8 @@
 		p {
 			margin: 0 16px;
 			flex: 1 1 0;
-			word-break: break-all;
+			overflow-wrap: break-word;
+			min-width: 0;
 		}
 		&.completed p {
 			text-decoration: line-through;

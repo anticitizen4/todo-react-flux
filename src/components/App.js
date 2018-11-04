@@ -39,6 +39,10 @@ class App extends Component {
 		actions.switchTab(tab);
 	}
 
+	handleClearCompleted() {
+		actions.clearCompleted();
+	}
+
 	render() {
 		let { todos, tab, count } = this.state;
 
@@ -65,6 +69,7 @@ class App extends Component {
 								tab={tab}
 								count={count}
 								switchTab={this.handleSwitchTab}
+								clearCompleted={this.handleClearCompleted}
 							/>
 						</Segment>
 					)}

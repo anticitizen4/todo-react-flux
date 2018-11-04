@@ -7,7 +7,7 @@ class Controls extends Component {
 	};
 
 	render() {
-		let { tab, count } = this.props;
+		let { tab, count, clearCompleted } = this.props;
 
 		let menuItems = [
 			{
@@ -38,7 +38,12 @@ class Controls extends Component {
 					onItemClick={this.handleItemClick}
 					secondary
 				/>
-				<Button content="clear" basic compact />
+				<Button
+					onClick={clearCompleted}
+					content="clear"
+					basic
+					compact
+				/>
 			</div>
 		);
 	}

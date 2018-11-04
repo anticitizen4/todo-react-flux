@@ -28,6 +28,12 @@ let actions = {
 			tab,
 		});
 	},
+
+	clearCompleted() {
+		dispatcher.dispatch({
+			type: "CLEAR_COMPLETED",
+		});
+	},
 };
 
 export default actions;

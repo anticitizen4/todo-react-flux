@@ -58,6 +58,13 @@ class Store extends events.EventEmitter {
 		this.emit("change");
 	}
 
+	clearCompleted() {
+		this.todos = this.todos.filter(({ completed }) => !completed);
+
+		storage.write(this.todos);
+		this.emit("change");
+	}
+
 	handleActions(action) {
 		switch (action.type) {
 			case "ADD_TODO":
@@ -71,6 +78,9 @@ class Store extends events.EventEmitter {
 				break;
 			case "SWITCH_TAB":
 				this.switchTab(action.tab);
+				break;
+			case "CLEAR_COMPLETED":
+				this.clearCompleted();
 				break;
 		}
 	}
