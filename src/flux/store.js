@@ -1,6 +1,7 @@
 import events from "events";
 import dispatcher from "./dispatcher";
 import storage from "./storage";
+import actionNames from "./actionNames";
 
 class Store extends events.EventEmitter {
 	constructor() {
@@ -67,19 +68,19 @@ class Store extends events.EventEmitter {
 
 	handleActions(action) {
 		switch (action.type) {
-			case "ADD_TODO":
+			case actionNames.ADD_TODO:
 				this.addTodo(action.text);
 				break;
-			case "REMOVE_TODO":
+			case actionNames.REMOVE_TODO:
 				this.removeTodo(action.id);
 				break;
-			case "TOGGLE_TODO":
+			case actionNames.TOGGLE_TODO:
 				this.toggleTodo(action.id);
 				break;
-			case "SWITCH_TAB":
+			case actionNames.SWITCH_TAB:
 				this.switchTab(action.tab);
 				break;
-			case "CLEAR_COMPLETED":
+			case actionNames.CLEAR_COMPLETED:
 				this.clearCompleted();
 				break;
 		}
