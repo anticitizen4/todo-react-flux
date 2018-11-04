@@ -25,17 +25,15 @@ class AddTodo extends Component {
 
 	render() {
 		return (
-			<div className="add-todo">
-				<Form onSubmit={this.handleSubmit}>
-					<Input
-						value={this.state.val}
-						onChange={this.handleChange}
-						ref={this.input}
-						action={<Button content="add" />}
-						fluid
-					/>
-				</Form>
-			</div>
+			<Form onSubmit={this.handleSubmit}>
+				<Input
+					value={this.state.val}
+					onChange={this.handleChange}
+					ref={this.input}
+					action={<Button content="add" basic />}
+					fluid
+				/>
+			</Form>
 		);
 	}
 }

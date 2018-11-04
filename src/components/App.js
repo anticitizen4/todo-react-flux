@@ -4,7 +4,8 @@ import actions from "../flux/actions";
 
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-import { Segment, Menu, Button } from "semantic-ui-react";
+import Controls from "./Controls";
+import { Segment } from "semantic-ui-react";
 
 import "./main.scss";
 
@@ -34,39 +35,22 @@ class App extends Component {
 		actions.toggleTodo(id);
 	}
 
-	handleTabClick(_, { name: tab }) {
+	handleSwitchTab(tab) {
 		actions.switchTab(tab);
 	}
 
 	render() {
 		let { todos, tab, count } = this.state;
 
-		let menuItems = [
-			{
-				name: "ALL",
-				key: "ALL",
-			},
-			{
-				name: "ACTIVE",
-				key: "ACTIVE",
-			},
-			{
-				name: "COMPLETED",
-				key: "COMPLETED",
-			},
-		];
-
-		let menuIndex = menuItems.findIndex(({ name }) => name === tab);
-
 		return (
 			<div className="container">
 				<Segment.Group>
-					<Segment>
+					<Segment className="seg-add">
 						<AddTodo addTodo={this.handleAddTodo} />
 					</Segment>
 
 					{!!todos.length && (
-						<Segment>
+						<Segment className="seg-list">
 							<TodoList
 								items={todos}
 								removeTodo={this.handleRemoveTodo}
@@ -74,18 +58,14 @@ class App extends Component {
 							/>
 						</Segment>
 					)}
+
 					{!!count && (
-						<Segment className="controls">
-							<p>items: {count}</p>
-							<Menu
-								items={menuItems}
-								activeIndex={menuIndex}
-								onItemClick={this.handleTabClick}
-								secondary
+						<Segment className="seg-controls">
+							<Controls
+								tab={tab}
+								count={count}
+								switchTab={this.handleSwitchTab}
 							/>
-							<Button compact basic>
-								clear
-							</Button>
 						</Segment>
 					)}
 				</Segment.Group>
